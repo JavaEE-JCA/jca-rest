@@ -73,7 +73,7 @@
                             <artifactId>module-war</artifactId>
                             <uri>/jca-rest.war</uri>
                             <!-- Set custom context root -->
-                            <contextRoot>/app</contextRoot>
+                            <contextRoot>/</contextRoot>
                         </webModule>
                     </modules>
                 </configuration>
