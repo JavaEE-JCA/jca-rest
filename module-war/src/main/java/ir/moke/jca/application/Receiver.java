@@ -16,10 +16,8 @@ package ir.moke.jca.application;
 
 import ir.moke.jca.api.InboundListener;
 
-import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
-import javax.ejb.MessageDrivenContext;
 
 @MessageDriven(name = "Receiver")
 public class Receiver implements InboundListener {
@@ -27,9 +25,6 @@ public class Receiver implements InboundListener {
     @EJB
     private MessagesReceived messagesReceived;
 
-    @Resource
-    private MessageDrivenContext context;
-    
     @Override
     public void receiveMessage(String message) {
         messagesReceived.messageReceived(message);

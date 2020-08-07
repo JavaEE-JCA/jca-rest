@@ -1,4 +1,3 @@
-/*
 package ir.moke.jca.adapter;
 
 import ir.moke.jca.api.InboundListener;
@@ -8,18 +7,21 @@ import javax.resource.spi.endpoint.MessageEndpoint;
 import javax.resource.spi.endpoint.MessageEndpointFactory;
 
 public class EndpointTarget extends Thread {
+    private final MessageEndpointFactory messageEndpointFactory;
+    private MessageEndpoint messageEndpoint;
 
-    private MessageEndpointFactory mef;
-
-    public EndpointTarget(final MessageEndpointFactory mef) {
-        this.mef = mef;
+    public EndpointTarget(MessageEndpointFactory messageEndpointFactory) {
+        this.messageEndpointFactory = messageEndpointFactory;
     }
 
-    public void invoke(final String message) {
+    public void sendMessage(String message) {
+        InboundListener inboundListener = (InboundListener) messageEndpoint;
+        inboundListener.receiveMessage(message);
+    }
+
+    private void createEndpoint() {
         try {
-            MessageEndpoint endpoint = mef.createEndpoint(null);
-            InboundListener inboundListener = (InboundListener) endpoint;
-            inboundListener.receiveMessage(message);
+            messageEndpoint = messageEndpointFactory.createEndpoint(null);
         } catch (UnavailableException e) {
             e.printStackTrace();
         }
@@ -27,7 +29,10 @@ public class EndpointTarget extends Thread {
 
     @Override
     public void run() {
-        invoke();
+        /*
+        * Liberty does not allow create endpoint during resourceAdapter activation .
+        * so need to create this on another thread .
+        * */
+        createEndpoint();
     }
 }
-*/

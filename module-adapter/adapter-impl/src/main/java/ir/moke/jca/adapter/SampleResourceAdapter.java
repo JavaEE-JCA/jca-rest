@@ -13,75 +13,37 @@
  */
 package ir.moke.jca.adapter;
 
-import ir.moke.jca.api.InboundListener;
-
-import javax.resource.ResourceException;
-import javax.resource.spi.*;
-import javax.resource.spi.endpoint.MessageEndpoint;
+import javax.resource.spi.ActivationSpec;
+import javax.resource.spi.BootstrapContext;
+import javax.resource.spi.Connector;
+import javax.resource.spi.ResourceAdapter;
 import javax.resource.spi.endpoint.MessageEndpointFactory;
 import javax.transaction.xa.XAResource;
 
 @Connector(description = "Sample Resource Adapter", displayName = "Sample Resource Adapter", eisType = "Sample Resource Adapter", version = "1.0")
 public class SampleResourceAdapter implements ResourceAdapter {
 
-//    final Map<SampleActivationSpec, EndpointTarget> targets = new ConcurrentHashMap<SampleActivationSpec, EndpointTarget>();
-
     private EndpointTarget endpointTarget;
 
-    public void start(BootstrapContext bootstrapContext) throws ResourceAdapterInternalException {
+    public void start(BootstrapContext bootstrapContext) {
     }
 
     public void stop() {
     }
 
-    public void endpointActivation(final MessageEndpointFactory messageEndpointFactory, final ActivationSpec activationSpec)
-            throws ResourceException {
-        final SampleActivationSpec sampleActivationSpec = (SampleActivationSpec) activationSpec;
-
-        try {
-            Runnable r = () -> {
-                try {
-                    final MessageEndpoint messageEndpoint = messageEndpointFactory.createEndpoint(null);
-                    this.endpointTarget = new EndpointTarget(messageEndpoint);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            };
-            Thread t = new Thread(r);
-            t.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void endpointActivation(final MessageEndpointFactory messageEndpointFactory, final ActivationSpec activationSpec) {
+        endpointTarget = new EndpointTarget(messageEndpointFactory);
+        endpointTarget.start();
     }
 
     public void endpointDeactivation(MessageEndpointFactory messageEndpointFactory, ActivationSpec activationSpec) {
-        /*final SampleActivationSpec sampleActivationSpec = (SampleActivationSpec) activationSpec;
-
-        final EndpointTarget endpointTarget = targets.get(sampleActivationSpec);
-        if (endpointTarget == null) {
-            throw new IllegalStateException("No EndpointTarget to undeploy for ActivationSpec " + activationSpec);
-        }*/
-
-//        endpointTarget.messageEndpoint.release();
     }
 
-    public XAResource[] getXAResources(ActivationSpec[] activationSpecs) throws ResourceException {
+    public XAResource[] getXAResources(ActivationSpec[] activationSpecs) {
         return new XAResource[0];
     }
 
-    public void sendMessage(final String message) {
-        endpointTarget.invoke(message);
-    }
-
-    public static class EndpointTarget {
-        private final MessageEndpoint messageEndpoint;
-
-        public EndpointTarget(final MessageEndpoint messageEndpoint) {
-            this.messageEndpoint = messageEndpoint;
-        }
-
-        public void invoke(final String message) {
-            ((InboundListener) this.messageEndpoint).receiveMessage(message);
-        }
+    public void sendMessage(String message) {
+        endpointTarget.sendMessage(message);
     }
 }
