@@ -28,17 +28,12 @@
     </license>
     <resourceadapter>
         <resourceadapter-class>ir.moke.jca.adapter.SampleResourceAdapter</resourceadapter-class>
-        <config-property>
-            <config-property-name>interval</config-property-name>
-            <config-property-type>int</config-property-type>
-            <config-property-value>15</config-property-value>
-        </config-property>
         <outbound-resourceadapter>
             <connection-definition>
                 <managedconnectionfactory-class>ir.moke.jca.adapter.SampleManagedConnectionFactory</managedconnectionfactory-class>
-                <connectionfactory-interface>SampleConnectionFactory</connectionfactory-interface>
+                <connectionfactory-interface>ir.moke.jca.api.SampleConnectionFactory</connectionfactory-interface>
                 <connectionfactory-impl-class>ir.moke.jca.adapter.SampleConnectionFactoryImpl</connectionfactory-impl-class>
-                <connection-interface>SampleConnection</connection-interface>
+                <connection-interface>ir.moke.jca.api.SampleConnection</connection-interface>
                 <connection-impl-class>ir.moke.jca.adapter.SampleConnectionImpl</connection-impl-class>
             </connection-definition>
             <transaction-support>NoTransaction</transaction-support>

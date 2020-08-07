@@ -34,10 +34,10 @@ import java.util.List;
 
 @Singleton
 @Lock(LockType.READ)
-@Path("")
+@Path("/test")
 public class Sender {
 
-    @Resource
+    @Resource(lookup = "jca/Sender")
     private SampleConnectionFactory cf;
 
     @EJB
