@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Licensed to the Apache Software Foundation (ASF) under one or more
-  ~ contributor license agreements.  See the NOTICE file distributed with
-  ~ this work for additional information regarding copyright ownership.
-  ~ The ASF licenses this file to You under the Apache License, Version 2.0
-  ~ (the "License"); you may not use this file except in compliance with
-  ~ the License.  You may obtain a copy of the License at
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
   ~
-  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~     http://www.apache.org/licenses/LICENSE-2.0
   ~
   ~ Unless required by applicable law or agreed to in writing, software
   ~ distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,9 +27,11 @@
         <resourceadapter-class>ir.moke.jca.adapter.SampleResourceAdapter</resourceadapter-class>
         <outbound-resourceadapter>
             <connection-definition>
-                <managedconnectionfactory-class>ir.moke.jca.adapter.SampleManagedConnectionFactory</managedconnectionfactory-class>
+                <managedconnectionfactory-class>ir.moke.jca.adapter.SampleManagedConnectionFactory
+                </managedconnectionfactory-class>
                 <connectionfactory-interface>ir.moke.jca.api.SampleConnectionFactory</connectionfactory-interface>
-                <connectionfactory-impl-class>ir.moke.jca.adapter.SampleConnectionFactoryImpl</connectionfactory-impl-class>
+                <connectionfactory-impl-class>ir.moke.jca.adapter.SampleConnectionFactoryImpl
+                </connectionfactory-impl-class>
                 <connection-interface>ir.moke.jca.api.SampleConnection</connection-interface>
                 <connection-impl-class>ir.moke.jca.adapter.SampleConnectionImpl</connection-impl-class>
             </connection-definition>
