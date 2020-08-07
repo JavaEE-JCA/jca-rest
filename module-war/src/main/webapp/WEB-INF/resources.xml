@@ -22,7 +22,7 @@
         MessageListenerInterface=ir.moke.jca.api.InboundListener
     </Container>
 
-    <Resource id="SampleConnectionFactory" type="ir.moke.jca.api.SampleConnectionFactory"
+    <Resource id="jca/Sender" type="ir.moke.jca.api.SampleConnectionFactory"
               class-name="ir.moke.jca.adapter.SampleManagedConnectionFactory">
         ResourceAdapter=SampleResourceAdapter
         TransactionSupport=none

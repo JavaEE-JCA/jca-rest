@@ -34,7 +34,7 @@ import java.util.List;
 @Path("/test")
 public class Sender {
 
-    @Resource(lookup = "jca/Sender")
+    @Resource(name = "jca/Sender")
     private SampleConnectionFactory cf;
 
     @EJB

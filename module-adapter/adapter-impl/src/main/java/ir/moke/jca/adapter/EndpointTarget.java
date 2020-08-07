@@ -27,11 +27,6 @@ public class EndpointTarget extends Thread {
         this.messageEndpointFactory = messageEndpointFactory;
     }
 
-    public void sendMessage(String message) {
-        InboundListener inboundListener = (InboundListener) messageEndpoint;
-        inboundListener.receiveMessage(message);
-    }
-
     private void createEndpoint() {
         try {
             messageEndpoint = messageEndpointFactory.createEndpoint(null);
@@ -40,12 +35,21 @@ public class EndpointTarget extends Thread {
         }
     }
 
+    public void sendMessage(String message) {
+        InboundListener inboundListener = (InboundListener) messageEndpoint;
+        inboundListener.receiveMessage(message);
+    }
+
     @Override
     public void run() {
         /*
-        * Liberty does not allow create endpoint during resourceAdapter activation .
-        * so need to create this on another thread .
-        * */
+         * Liberty does not allow create endpoint during resourceAdapter activation .
+         * so need to create this on another thread .
+         * */
         createEndpoint();
+    }
+
+    public MessageEndpoint getMessageEndpoint() {
+        return messageEndpoint;
     }
 }

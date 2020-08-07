@@ -23,7 +23,7 @@ import javax.transaction.xa.XAResource;
 @Connector(description = "Sample Resource Adapter", displayName = "Sample Resource Adapter", eisType = "Sample Resource Adapter", version = "1.0")
 public class SampleResourceAdapter implements ResourceAdapter {
 
-    private EndpointTarget endpointTarget;
+    private static EndpointTarget endpointTarget;
 
     public void start(BootstrapContext bootstrapContext) {
     }
@@ -37,6 +37,9 @@ public class SampleResourceAdapter implements ResourceAdapter {
     }
 
     public void endpointDeactivation(MessageEndpointFactory messageEndpointFactory, ActivationSpec activationSpec) {
+        if (endpointTarget != null) {
+            endpointTarget.getMessageEndpoint().release();
+        }
     }
 
     public XAResource[] getXAResources(ActivationSpec[] activationSpecs) {
